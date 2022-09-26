@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Letters from './Letters';
 import Guess from './Guess';
+import forca0 from '../assets/forca0.png';
+import forca1 from '../assets/forca1.png';
+import forca2 from '../assets/forca2.png';
+import forca3 from '../assets/forca3.png';
+import forca4 from '../assets/forca4.png';
+import forca5 from '../assets/forca5.png';
+import forca6 from '../assets/forca6.png';
+
+const forca = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
 
 const Button = styled.button
     `
@@ -64,7 +73,7 @@ const Image = styled.img
 
 function Game(props) {
 
-    const [hanged, setHanged] = useState('assets/forca0.png');
+    const [hanged, setHanged] = useState(forca[0]);
     const [tries, setTries] = useState(0);
     const [start, setStart] = useState(false);
     const [word, setWord] = useState("");
@@ -123,7 +132,7 @@ function Game(props) {
 
         const count = tries + 1;
         setTries(count);
-        const newHanged = `assets/forca${tries}.png`;
+        const newHanged = forca[tries];
         setHanged(newHanged);
         if(tries >= 6) {
             const arr = [];
@@ -138,7 +147,7 @@ function Game(props) {
     }
 
     function startGame() {
-        setHanged('assets/forca0.png');
+        setHanged(forca[0]);
         setLost(false);
         setColor("black");
         setGuess("");
