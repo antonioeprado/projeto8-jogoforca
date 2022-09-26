@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const FlexWraper = styled.div
@@ -31,12 +31,20 @@ const GuessButton = styled.button
         cursor: pointer;
     `;
 
-function Guess() {
+function Guess(props) {
+
+    const [input, setInput] = useState("");
+
+    function passInput() {
+        props.guess(input);
+        document.querySelector("[data-identifier=type-guess]").value = "";
+    }
+
   return (
     <FlexWraper>
         Já sei a palavra!
-        <InputGuess />
-        <GuessButton>Chutar</GuessButton>
+        <InputGuess data-identifier="type-guess" type="text" onChange={(event) => setInput(event.target.value)} />
+        <GuessButton data-identifier="guess-button" onClick={passInput}>Chutar</GuessButton>
     </FlexWraper>
   )
 }

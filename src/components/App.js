@@ -1,8 +1,7 @@
 import React from 'react';
 import Game from './Game';
-import Letters from './Letters';
-import Guess from './Guess';
 import styled from 'styled-components';
+import words from './words';
 
 const Wraper = styled.div
     `
@@ -14,11 +13,10 @@ const Wraper = styled.div
     `;
 
 function App() {
+
     return (
         <Wraper>
-            <Game />
-            <Letters />
-            <Guess />
+            <Game words={words} />
         </Wraper>
     )
 }
