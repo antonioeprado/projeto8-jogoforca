@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 
 
@@ -25,6 +25,9 @@ function Letter(props) {
 
     const [disabled, setDisabled] = useState(false);
 
+    useEffect(() => {
+        setDisabled(false);
+    }, [props.started])
 
     function toggleDisabled(e) {
         props.click(e.innerText.toLowerCase());
