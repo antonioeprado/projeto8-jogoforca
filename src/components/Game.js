@@ -73,14 +73,13 @@ function Game(props) {
     const [wordArray, setWordArray] = useState([]);
     const [guess, setGuess] = useState("");
     const [color, setColor] = useState("black");
+    const [lost, setLost] = useState(false);
 
     useEffect(() => {
         guessWord()
     }, [guess])
 
     useEffect(() => {
-        setGuess("");
-        setHanged('assets/forca0.png');
         setTries(0);
     }, [start])
 
@@ -107,10 +106,13 @@ function Game(props) {
 
     function checkWin() {
         if(word.length !== 0 && wordArray.lenght !== 0 && clicked !== null) {
-            if(wordArray.join("") === word) {
+            if(wordArray.join("") === word && !lost) {
                 setColor("green");
                 setStart(false);
             } else if(wordArray.join("") !== guess && guess.length !== 0) {
+                setColor("red");
+                setStart(false);
+            } else if(lost) {
                 setColor("red");
                 setStart(false);
             }
@@ -124,15 +126,23 @@ function Game(props) {
         const newHanged = `assets/forca${tries}.png`;
         setHanged(newHanged);
         if(tries >= 6) {
+            const arr = [];
+            for(const letter of word) {
+                arr.push(letter);
+            }
+            setLost(true);
             setColor("red");
-            setWordArray(word);
+            setWordArray(arr);
             setStart(false);
         }
     }
 
     function startGame() {
-        setStart(true);
+        setHanged('assets/forca0.png');
+        setLost(false);
         setColor("black");
+        setGuess("");
+        setStart(true);
         const sortedWordsArray = props.words.sort(() => Math.random() - 0.5);
         const scrambledArray = scramble([...sortedWordsArray]);
         const randomIndex = Math.floor(Math.random()*10);
@@ -166,6 +176,7 @@ function Game(props) {
                 for(const letter of guess){
                     arr.push(letter);
                     setWordArray(arr);
+                    setColor("green");
                 }
             } else {
                 const arr = [];
@@ -173,6 +184,7 @@ function Game(props) {
                     arr.push(letter)
                     setWordArray(arr);
                     setColor("red");
+                    setLost(true);
                 }
             }
         }
