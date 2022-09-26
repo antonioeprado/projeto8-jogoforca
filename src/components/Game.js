@@ -80,6 +80,8 @@ function Game(props) {
 
     useEffect(() => {
         setGuess("");
+        setHanged('assets/forca0.png');
+        setTries(0);
     }, [start])
 
     useEffect(() => {
